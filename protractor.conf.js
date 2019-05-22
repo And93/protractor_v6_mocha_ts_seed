@@ -18,7 +18,7 @@ exports.config = {
     allScriptsTimeout: TIMEOUT.xl * 4,
 
     specs: [
-        'src/**/*.ts'
+        './src/**/*.ts'
     ],
 
     capabilities: {
@@ -27,7 +27,10 @@ exports.config = {
             driver: 'ALL',
             server: 'ALL',
             browser: 'ALL'
-        }
+        },
+        count: 1,
+        shardTestFiles: true,
+        maxInstances: 2
     },
 
     framework: 'mocha',
@@ -37,5 +40,31 @@ exports.config = {
         reporter: 'spec',
         timeout: TIMEOUT.xl * 5,
         slow: TIMEOUT.xl * 4
-    }
+    },
+
+    params: {
+        env: '',
+        user: {
+            type: '',
+            username: '',
+            password: '',
+            message: ''
+        }
+    },
+
+    beforeLaunch: () => {
+        console.log('beforeLaunch'); // one times. Before test run
+    },
+
+    onPrepare: () => {
+        console.log('onPrepare'); // Before each test suite.
+    },
+
+    onComplete: () => {
+        console.log('onComplete'); // After each test suite.
+    },
+
+    afterLaunch: () => {
+        console.log('afterLaunch'); // one times. After test run
+    },
 };
