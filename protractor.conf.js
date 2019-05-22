@@ -7,6 +7,7 @@ const TIMEOUT = {
 };
 
 require('ts-node/register');
+const server = require('./src/helpers/userProvider/server');
 
 exports.config = {
 
@@ -18,7 +19,7 @@ exports.config = {
     allScriptsTimeout: TIMEOUT.xl * 4,
 
     specs: [
-        './src/**/*.ts'
+        './src/tests/**/*.ts'
     ],
 
     capabilities: {
@@ -52,19 +53,8 @@ exports.config = {
         }
     },
 
-    beforeLaunch: () => {
-        console.log('beforeLaunch'); // one times. Before test run
-    },
-
-    onPrepare: () => {
-        console.log('onPrepare'); // Before each test suite.
-    },
-
-    onComplete: () => {
-        console.log('onComplete'); // After each test suite.
-    },
-
-    afterLaunch: () => {
-        console.log('afterLaunch'); // one times. After test run
-    },
+    beforeLaunch: () => server(), // one times. Before test run
+    onPrepare: () => console.log('onPrepare'), // Before each test suite.
+    onComplete: () => console.log('onComplete'), // After each test suite.
+    afterLaunch: () => console.log('afterLaunch'), // one times. After test run
 };

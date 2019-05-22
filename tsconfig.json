@@ -18,8 +18,7 @@
     "lib": ["dom", "es2015", "es2016", "es2017"],
     "typeRoots": ["./node_modules/@types"],
     "paths": {
-      "*": [ "./*" ],
-      "src/*": ["./src/*"]
+      "*": [ "./*" ]
     }
   },
   "include": [
