@@ -21,12 +21,7 @@ export const setUser = async (): Promise<IUser> => {
     const response: IUser = await request(options);
 
     try {
-
-        browser.params.user.type = response.type;
-        browser.params.user.username = response.username;
-        browser.params.user.password = response.password;
-        browser.params.user.message = response.message;
-
+        browser.params.user = response;
         console.log('Account Provider Service: Set user -', response);
         return response;
     } catch (error) {
@@ -34,7 +29,7 @@ export const setUser = async (): Promise<IUser> => {
     }
 };
 
-export const returnUser = async (userObject: IUser): Promise<IUser> => {
+export const returnUser = async (userObject: IUser = browser.params.user): Promise<IUser> => {
 
     const options = {
         url: `${ADDRESS}/return`,

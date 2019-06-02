@@ -30,8 +30,8 @@ exports.config = {
             browser: 'ALL'
         },
         count: 1,
-        shardTestFiles: true,
-        maxInstances: 2
+        shardTestFiles: false,
+        maxInstances: 1
     },
 
     framework: 'mocha',
