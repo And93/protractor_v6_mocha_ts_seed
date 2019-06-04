@@ -11,6 +11,7 @@ const server = require('./src/helpers/userProvider/server');
 
 exports.config = {
 
+    seleniumAddress: "http://localhost:4444/wd/hub",
     baseUrl: 'https://angular.io/',
     directConnect: false,
     ignoreUncaughtExceptions: true,
@@ -30,8 +31,12 @@ exports.config = {
             browser: 'ALL'
         },
         count: 1,
-        shardTestFiles: false,
-        maxInstances: 1
+        shardTestFiles: true,
+        maxInstances: 2,
+
+        enableVNC: true,
+        enableVideo: true,
+        enableLog: true
     },
 
     framework: 'mocha',
