@@ -1,12 +1,5 @@
 version: '3'
 
-# docker pull selenoid/vnc:chrome_73.0
-# docker pull selenoid/video-recorder:latest-release
-
-# docker volume create selenoid-videos
-
-# docker network create selenoid
-# docker network rm selenoid
 networks:
   default:
     external:
@@ -18,13 +11,19 @@ services:
     volumes:
       - .:/etc/selenoid
       - /var/run/docker.sock:/var/run/docker.sock
-      - /c/project/protractor_v6_mocha_ts_seed/video:/opt/selenoid/video
-      - ./logs:/opt/selenoid/logs
+#     if linux then:
+#     - ./artifacts/video:/opt/selenoid/video
+#     if Windows then:
+      - /c/project/protractor_v6_mocha_ts_seed/artifacts/video:/opt/selenoid/video
+      - ./artifacts/logs:/opt/selenoid/logs
     environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=/c/project/protractor_v6_mocha_ts_seed/video
+#     if linux then:
+#     - OVERRIDE_VIDEO_OUTPUT_DIR=/artifacts/video
+#     if Windows then:
+      - OVERRIDE_VIDEO_OUTPUT_DIR=/c/project/protractor_v6_mocha_ts_seed/artifacts/video
     command: [
-      "-conf", "/etc/selenoid/browsers.json",
-      "-limit", "2",
+      "-conf", "/etc/selenoid/browsers.conf.json",
+      "-limit", "3",
       "-video-output-dir", "/opt/selenoid/video",
       "-log-output-dir", "/opt/selenoid/logs",
       "-container-network", "selenoid"
