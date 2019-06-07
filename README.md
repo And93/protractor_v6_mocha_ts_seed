@@ -33,6 +33,15 @@ sh selenoiuDown.sh
 ### Run in the parallel mode
 Set `isParallel = true` in the **protractor.conf.js**
 
+## Artifacts
+For check autotests' artifacts look into:
+    
+    artifacts/logs
+    artifacts/video
+    
+## Reporter
+// TODO (allure or reportportal)
+
 ## Requirements
     nodejs >= v8.9.1
     npm >= 5.7.1
