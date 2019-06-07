@@ -1,15 +1,15 @@
-const TIMEOUT = {
-    xs: 1000,
-    s: 5 * 1000,
-    m: 10 * 1000,
-    l: 15 * 1000,
-    xl: 20 * 1000
-};
+'use strict';
 
 require('ts-node/register');
 const server = require('./src/helpers/userProvider/server');
+const userProvider = require('./src/helpers/userProvider/userHelper');
+const {TIMEOUT} = require('./src/helpers/timeoutHelper');
+const waitVideo = require('./src/helpers/videoHelper');
 
-exports.config = {
+const isSelenoid = false;
+const isParallel = false;
+
+const config = {
 
     baseUrl: 'https://angular.io/',
     directConnect: false,
@@ -30,8 +30,8 @@ exports.config = {
             browser: 'ALL'
         },
         count: 1,
-        shardTestFiles: false,
-        maxInstances: 1
+        shardTestFiles: isParallel,
+        maxInstances: isParallel ? 3 : 1,
     },
 
     framework: 'mocha',
@@ -50,11 +50,29 @@ exports.config = {
             username: '',
             password: '',
             message: ''
+        },
+        session: {
+            id: ''
         }
     },
 
-    beforeLaunch: () => server(), // one times. Before test run
-    onPrepare: () => console.log('onPrepare'), // Before each test suite.
-    onComplete: () => console.log('onComplete'), // After each test suite.
-    afterLaunch: () => console.log('afterLaunch'), // one times. After test run
+    beforeLaunch: () => server.start(),
+
+    onPrepare: async () => {
+        await userProvider.setUser();
+        return waitVideo.getCurrentSessionId();
+    },
+
+    onComplete: () => userProvider.returnUser(),
 };
+
+if (isSelenoid) {
+    config.seleniumAddress = 'http://localhost:4444/wd/hub';
+
+    config.capabilities.enableLog = true;
+    config.capabilities.enableVideo = true;
+    config.capabilities.enableVNC = true;
+    config.onCleanUp = () => waitVideo.waitVideo();
+}
+
+exports.config = config;

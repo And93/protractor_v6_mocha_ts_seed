@@ -1,15 +1,9 @@
 import {browser} from 'protractor';
-import * as request from 'request-promise';
+import * as request from 'request-promise-native';
+import {IUser} from './userData';
 
-const PORT = 13000;
-const ADDRESS = `http://localhost:${PORT}`;
-
-interface IUser {
-    type: string,
-    username: string,
-    password: string,
-    message: string
-}
+export const PORT = 13000;
+export const ADDRESS = `http://localhost:${PORT}`;
 
 export const setUser = async (): Promise<IUser> => {
 
@@ -18,11 +12,12 @@ export const setUser = async (): Promise<IUser> => {
         json: true
     };
 
-    const response: IUser = await request(options);
-
     try {
+        const response: IUser = await request(options);
+
         browser.params.user = response;
-        console.log('Account Provider Service: Set user -', response);
+        // tslint:disable-next-line:no-console
+        console.log('Account Provider Service: Set user:\n', response, '\n');
         return response;
     } catch (error) {
         console.error(error)
@@ -37,10 +32,11 @@ export const returnUser = async (userObject: IUser = browser.params.user): Promi
         json: true
     };
 
-    const response = await request(options);
-
     try {
-        console.log('Account Provider Service: Returning -', response);
+        const response = await request(options);
+
+        // tslint:disable-next-line:no-console
+        console.log('Account Provider Service: Returning:\n', response, '\n');
         return response;
     } catch (error) {
         console.error(error)
@@ -53,10 +49,11 @@ export const getUsersList = async (): Promise<IUser[]> => {
         json: true
     };
 
-    const response: IUser[] = await request(options);
-
     try {
-        console.log('Account Provider Service: List of users -', ...response);
+        const response: IUser[] = await request(options);
+
+        // tslint:disable-next-line:no-console
+        console.log('Account Provider Service: List of users:\n', ...response, '\n');
         return response;
     } catch (error) {
         console.error(error);

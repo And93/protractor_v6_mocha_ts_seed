@@ -1,4 +1,7 @@
 .idea
 node_modules
 
+artifacts/logs/*.log
+artifacts/video/*.mp4
+
 *lock.json
