@@ -1,6 +1,7 @@
 import * as request from 'request-promise-native';
 import {browser} from 'protractor';
 import {waitUntil} from './waitHelper';
+import {TIMEOUT} from './timeoutHelper';
 
 export const getCurrentSessionId = async (): Promise<string> => {
     const session = await browser.getSession();
@@ -28,7 +29,7 @@ export const waitVideo = (id = browser.params.session.id): Promise<void> => {
                 return false
             }
         },
-        10000,
-        1000
+        TIMEOUT.l,
+        TIMEOUT.xs
     );
 };
