@@ -1,4 +1,4 @@
-export const TIMEOUT = {
+export const TIMEOUT: { [key: string]: number } = {
     xs: 1000,
     s: 5 * 1000,
     m: 10 * 1000,

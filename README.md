@@ -18,7 +18,7 @@ npm test
 * By default autotests run without Selenoid and in the single thread.
 
 ### Run with Selenoid
-Set `isSelenoid = true` in the **protractor.conf.js**
+Set `isSelenoid = true` in the **protractor.conf.ts**
 
 For run Selenoid execute:
 ```
@@ -31,7 +31,7 @@ sh selenoiuDown.sh
 ```
 
 ### Run in the parallel mode
-Set `isParallel = true` in the **protractor.conf.js**
+Set `isParallel = true` in the **protractor.conf.ts**
 
 ## Artifacts
 For check autotests' artifacts look into:

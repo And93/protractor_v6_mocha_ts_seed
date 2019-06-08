@@ -1,15 +1,13 @@
-'use strict';
+import {Config} from 'protractor';
+import {start} from './src/helpers/userProvider/server';
+import {returnUser, setUser} from './src/helpers/userProvider/userHelper';
+import {TIMEOUT} from './src/helpers/timeoutHelper';
+import {getCurrentSessionId, waitVideo} from './src/helpers/videoHelper';
 
-require('ts-node/register');
-const server = require('./src/helpers/userProvider/server');
-const userProvider = require('./src/helpers/userProvider/userHelper');
-const {TIMEOUT} = require('./src/helpers/timeoutHelper');
-const waitVideo = require('./src/helpers/videoHelper');
+const isSelenoid: boolean = false;
+const isParallel: boolean = false;
 
-const isSelenoid = false;
-const isParallel = false;
-
-const config = {
+export const config: Config = {
 
     baseUrl: 'https://angular.io/',
     directConnect: false,
@@ -56,14 +54,14 @@ const config = {
         }
     },
 
-    beforeLaunch: () => server.start(),
+    beforeLaunch: () => start(),
 
     onPrepare: async () => {
-        await userProvider.setUser();
-        return waitVideo.getCurrentSessionId();
+        await setUser();
+        return getCurrentSessionId();
     },
 
-    onComplete: () => userProvider.returnUser(),
+    onComplete: () => returnUser(),
 };
 
 if (isSelenoid) {
@@ -72,7 +70,5 @@ if (isSelenoid) {
     config.capabilities.enableLog = true;
     config.capabilities.enableVideo = true;
     config.capabilities.enableVNC = true;
-    config.onCleanUp = () => waitVideo.waitVideo();
+    config.onCleanUp = () => waitVideo();
 }
-
-exports.config = config;

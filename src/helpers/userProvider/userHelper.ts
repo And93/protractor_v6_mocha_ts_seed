@@ -1,9 +1,8 @@
 import {browser} from 'protractor';
 import * as request from 'request-promise-native';
-import {IUser} from './userData';
 
-export const PORT = 13000;
-export const ADDRESS = `http://localhost:${PORT}`;
+import {IUser} from './userData';
+import {ADDRESS} from './server';
 
 export const setUser = async (): Promise<IUser> => {
 

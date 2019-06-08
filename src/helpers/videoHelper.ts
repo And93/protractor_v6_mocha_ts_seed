@@ -5,11 +5,11 @@ import {TIMEOUT} from './timeoutHelper';
 
 export const getCurrentSessionId = async (): Promise<string> => {
     const session = await browser.getSession();
-    const id = await session.getId();
+    const id: string = await session.getId();
     return browser.params.session.id = id;
 };
 
-export const waitVideo = (id = browser.params.session.id): Promise<void> => {
+export const waitVideo = (id: string = browser.params.session.id): Promise<void> => {
     const options = {
         method: 'HEAD',
         uri: `http://localhost:4444/video/${id}.mp4`
