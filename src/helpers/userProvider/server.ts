@@ -9,9 +9,9 @@ export const ADDRESS: string = `http://localhost:${PORT}`;
 
 const app: express.Express = express();
 
-app.get('/all', (request: Request, response: Response): Response => response.send(USERS));
+app.get('/all', (_request: Request, response: Response): Response => response.send(USERS));
 
-app.get('/get', (request: Request, response: Response): Response => {
+app.get('/get', (_request: Request, response: Response): Response => {
     const account = USERS.pop();
     // tslint:disable-next-line:no-console
     console.log('Account Provider Service: Providing User:\n', account, '\n');

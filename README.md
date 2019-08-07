@@ -1,4 +1,5 @@
 # Seed project for e2e autotests
+// todo
 
 ## Stack
 Typescript - Protractor - Mocha - Selenoid

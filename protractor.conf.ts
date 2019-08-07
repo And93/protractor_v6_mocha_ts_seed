@@ -3,9 +3,19 @@ import {start} from './src/helpers/userProvider/server';
 import {returnUser, setUser} from './src/helpers/userProvider/userHelper';
 import {TIMEOUT} from './src/helpers/timeoutHelper';
 import {getCurrentSessionId, waitVideo} from './src/helpers/videoHelper';
+import yargs = require('yargs');
 
-const isSelenoid: boolean = false;
-const isParallel: boolean = false;
+const {argv} = yargs
+    .boolean('selenoid')
+    .boolean('parallel')
+    .string('reporter')
+    .default('selenoid', false)
+    .default('parallel', false)
+    .default('reporter', 'spec');
+
+const reporter = argv.reporter;
+const isSelenoid = argv.selenoid;
+const isParallel = argv.parallel;
 
 export const config: Config = {
 
@@ -36,7 +46,6 @@ export const config: Config = {
 
     mochaOpts: {
         ui: 'bdd',
-        reporter: 'spec',
         timeout: TIMEOUT.xl * 5,
         slow: TIMEOUT.xl * 4
     },
@@ -71,4 +80,25 @@ if (isSelenoid) {
     config.capabilities.enableVideo = true;
     config.capabilities.enableVNC = true;
     config.onCleanUp = () => waitVideo();
+}
+
+if (reporter === 'mocha') {
+    config.mochaOpts.reporter = 'allure-mocha';
+} else if (reporter === 'reportportal') {
+    config.mochaOpts.reporter = 'mocha-rp-reporter';
+    config.mochaOpts.reporterOptions = {
+        // configFile: 'path to config.json', or uncomment this string.
+        configOptions: {
+            token: '306ba368-412b-4d32-b8a0-51aad0dab24b',
+            endpoint: 'http://localhost:8080/api/v1',
+            launch: 'Example_launch',
+            project: 'protractor_v6_mocha_ts_seed',
+            mode: 'DEFAULT',
+            debug: false,
+            description: 'Launch description text',
+            tags: [],
+        }
+    }
+} else {
+    config.mochaOpts.reporter = 'spec';
 }
