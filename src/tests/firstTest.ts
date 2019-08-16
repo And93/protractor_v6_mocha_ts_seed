@@ -2,6 +2,7 @@ import {browser} from 'protractor';
 import {expect} from 'chai';
 import * as puppeteer from 'puppeteer-core';
 import * as request from 'request-promise-native';
+import {TIMEOUT} from '../helpers/timeoutHelper';
 
 describe('Example suite (1)', () => {
 
@@ -23,21 +24,35 @@ describe('Example suite (1)', () => {
 
         const target = await devTools.waitForTarget(t => t.type() === 'page');
 
-        // const cdpSession = await target.createCDPSession();
+        // const client  = await target.createCDPSession();
         // https://pptr.dev/#?product=Puppeteer&version=v1.19.0&show=api-class-cdpsession
         // https://chromedevtools.github.io/devtools-protocol/
-        // await cdpSession.send('Network.enable');
+        // await client.send('Network.enable');
 
         const page = await target.page();
         // https://pptr.dev/#?product=Puppeteer&version=v1.19.0&show=api-class-page
 
+        // page.setDefaultTimeout(TIMEOUT.xl * 2);
+        await page.setViewport(await browser.manage().window().getSize());
+
         await page.setRequestInterception(true);
-        await page.on('request', interceptedRequest => {
-            console.log(interceptedRequest.headers());
-            interceptedRequest.continue();
+
+        page.on('request', _request => {
+            console.log('request ' + _request.url());
+            _request.continue();
         });
 
-        await page.goto('https://angular.io/docs');
+        page.on('requestfailed', _request => {
+            console.log('requestfailed ' + _request.url() + ' ' + _request.failure().errorText);
+        });
+
+        page.on('response', resp => {
+            console.log('GOT A RESPONSE, YO', resp.status());
+        });
+
+        await page.goto('https://angular.io/assdsdsda');
+
+        await browser.wait(browser.ExpectedConditions.invisibilityOf(browser.$('#page-not-found')), TIMEOUT.xl);
 
         const elemIsDisplayed = await browser.$('mat-sidenav-content').isDisplayed();
         expect(elemIsDisplayed).to.be.true;
