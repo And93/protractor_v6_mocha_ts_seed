@@ -51,7 +51,7 @@ describe('Example suite (1)', () => {
         });
 
         page.on('requestfinished', _request => {
-            console.log('requestfinished', _request.url() + _request.response().status());
+            console.log('requestfinished', _request.url() + ' ' + _request.response().status());
         });
 
         await page.goto('https://angular.io/assdsd/sda');
