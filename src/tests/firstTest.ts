@@ -50,7 +50,11 @@ describe('Example suite (1)', () => {
             console.log('GOT A RESPONSE, YO', resp.status());
         });
 
-        await page.goto('https://angular.io/assdsdsda');
+        page.on('requestfinished', _request => {
+            console.log('requestfinished', _request.url() + _request.response().status());
+        });
+
+        await page.goto('https://angular.io/assdsd/sda');
 
         await browser.wait(browser.ExpectedConditions.invisibilityOf(browser.$('#page-not-found')), TIMEOUT.xl);
 
