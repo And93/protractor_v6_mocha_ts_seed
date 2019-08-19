@@ -76,9 +76,18 @@ export const config: Config = {
 if (isSelenoid) {
     config.seleniumAddress = 'http://localhost:4444/wd/hub';
 
-    config.capabilities.enableLog = true;
-    config.capabilities.enableVideo = true;
-    config.capabilities.enableVNC = true;
+    config.capabilities = Object.assign(
+        {},
+        config.capabilities,
+        {
+            'selenoid:options': {
+                enableLog: true,
+                enableVideo: true,
+                enableVNC: true
+            }
+        }
+    );
+
     config.onCleanUp = () => waitVideo();
 }
 

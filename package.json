@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "webdriver-manager update --gecko false --ie false --ignore_ssl --alternate_cdn",
-    "test": "ts-node node_modules/protractor/bin/protractor protractor.conf.ts",
+    "test": "ts-node node_modules/protractor/bin/protractor protractor.conf.ts --disableChecks",
     "posttest": "chromedriver_killer.bat",
     "allure-report": "allure generate ./allure-results -c"
   },

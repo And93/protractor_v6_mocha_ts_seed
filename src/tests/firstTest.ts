@@ -51,7 +51,7 @@ describe('Example suite (1)', () => {
         // https://pptr.dev/#?product=Puppeteer&version=v1.19.0&show=api-class-page
         const page = await target.page();
 
-        browser.puppeteer = page;
+        // browser.puppeteer = page;
 
         // const iPhone = puppeteer.devices['iPhone 4'];
         // await page.emulate(iPhone);
@@ -79,8 +79,8 @@ describe('Example suite (1)', () => {
         //     console.log('requestfinished', _request.url() + ' ' + _request.response().status());
         // });
 
-        await browser.puppetter.goto('https://www.epam.com/', {waitUntil: 'networkidle0'});
-        await browser.puppetter.waitForSelector('[href="/careers"]', {visible: true});
+        await page.goto('https://www.epam.com/', {waitUntil: 'networkidle0'});
+        await page.waitForSelector('[href="/careers"]', {visible: true});
         await page.click('[href="/careers"]');
         await page.waitForSelector('[data-view="searchForm"]', {visible: true});
 

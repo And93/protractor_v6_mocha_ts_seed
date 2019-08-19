@@ -2,7 +2,7 @@
 // todo
 
 ## Stack
-Typescript - Protractor - Mocha - Selenoid
+Typescript - Protractor - Puppeteer - Mocha - Selenoid
 
 ## Run autotests
 
@@ -34,6 +34,9 @@ sh selenoiuDown.sh
 ### Run in the parallel mode
 Set `isParallel = true` in the **protractor.conf.ts**
 
+### UI of Selenoid
+http://localhost:8090
+
 ## Artifacts
 For check autotests' artifacts look into:
     
@@ -41,7 +44,7 @@ For check autotests' artifacts look into:
     artifacts/video
     
 ## Reporter
-// TODO (allure or reportportal)
+// TODO (allure and reportportal)
 
 ## Requirements
     nodejs >= v8.9.1
