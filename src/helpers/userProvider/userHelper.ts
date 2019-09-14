@@ -1,8 +1,9 @@
 import {browser} from 'protractor';
 import * as request from 'request-promise-native';
-
 import {IUser} from './userData';
 import {ADDRESS} from './server';
+
+const time = () => `[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}]`;
 
 export const setUser = async (): Promise<IUser> => {
 
@@ -14,9 +15,8 @@ export const setUser = async (): Promise<IUser> => {
     try {
         const response: IUser = await request(options);
 
-        browser.params.user = response;
-        // tslint:disable-next-line:no-console
-        console.log('Account Provider Service: Set user:\n', response, '\n');
+        Object.assign(browser.params.user, response);
+        console.log(`${time()} I/UserService - Set user: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {
         console.error(error)
@@ -33,9 +33,7 @@ export const returnUser = async (userObject: IUser = browser.params.user): Promi
 
     try {
         const response = await request(options);
-
-        // tslint:disable-next-line:no-console
-        console.log('Account Provider Service: Returning:\n', response, '\n');
+        console.log(`${time()} I/UserService - Returned user: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {
         console.error(error)
@@ -50,9 +48,7 @@ export const getUsersList = async (): Promise<IUser[]> => {
 
     try {
         const response: IUser[] = await request(options);
-
-        // tslint:disable-next-line:no-console
-        console.log('Account Provider Service: List of users:\n', ...response, '\n');
+        console.log(`${time()} I/UserService - List of all users:: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {
         console.error(error);
