@@ -7,15 +7,15 @@ import yargs = require('yargs');
 
 const {argv} = yargs
     .boolean('selenoid')
-    .boolean('parallel')
+    .number('parallel')
     .string('reporter')
     .default('selenoid', false)
-    .default('parallel', false)
+    .default('parallel', 1)
     .default('reporter', 'spec');
 
 const reporter = argv.reporter;
 const isSelenoid = argv.selenoid;
-const isParallel = argv.parallel;
+const threadCount = argv.parallel;
 
 export const config: Config = {
 
@@ -38,8 +38,8 @@ export const config: Config = {
             browser: 'ALL'
         },
         count: 1,
-        shardTestFiles: isParallel,
-        maxInstances: isParallel ? 3 : 1,
+        shardTestFiles: threadCount > 1,
+        maxInstances: threadCount,
     },
 
     framework: 'mocha',

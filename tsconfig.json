@@ -1,25 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
-    "strict": true,
-    "suppressImplicitAnyIndexErrors": false,
-    "sourceMap": true,
-    "outDir": "./target",
+    "target": "es2015",
     "baseUrl": ".",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "strict": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": ["dom", "es2015", "es2016", "es2017"],
-    "typeRoots": ["./node_modules/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "paths": {
-      "*": [ "./*" ]
+      "*": [
+        "./*"
+      ]
     }
   },
-  "include": [
-    "src/**/*.ts"
+  "exclude": [
+    "node_modules",
+    "artifacts"
   ]
 }
