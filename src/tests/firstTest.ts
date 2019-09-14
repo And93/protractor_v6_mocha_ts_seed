@@ -2,6 +2,7 @@ import {browser} from 'protractor';
 import * as puppeteer from 'puppeteer-core';
 import * as request from 'request-promise-native';
 import {TIMEOUT} from '../helpers/timeoutHelper';
+import {describe, it} from 'mocha';
 
 async function getElementByText(page: puppeteer.Page, elements: puppeteer.ElementHandle[], text: string) {
     for (let i = 0; i < elements.length; i++) {
@@ -19,7 +20,7 @@ const sizeWindow = {
     height: 768
 };
 
-describe('Example suite (1)', () => {
+describe.skip('Example suite (1)', () => {
 
     it('Example test with connect Puppeteer', async () => {
 
@@ -61,7 +62,6 @@ describe('Example suite (1)', () => {
         await page.setRequestInterception(true);
 
         page.on('request', (_request: puppeteer.Request) => {
-            // console.log('request ' + _request.url());
             _request.continue();
         });
 
@@ -75,7 +75,7 @@ describe('Example suite (1)', () => {
         //     console.log(response.securityDetails().protocol());
         // });
         //
-        // page.on('requestfinished', _request => {
+        // page.on('requestfinished', (_request: puppeteer.Request) => {
         //     console.log('requestfinished', _request.url() + ' ' + _request.response().status());
         // });
 

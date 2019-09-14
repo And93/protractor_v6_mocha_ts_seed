@@ -1,0 +1,8 @@
+{
+  "name": "my-custom-reporter",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "mocha": "6.2.0"
+  }
+}

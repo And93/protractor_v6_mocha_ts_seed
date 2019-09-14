@@ -47,7 +47,7 @@ export const config: Config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: TIMEOUT.xl * 5,
-        slow: TIMEOUT.xl * 4
+        slow: TIMEOUT.xl * 4,
     },
 
     params: {
@@ -91,8 +91,10 @@ if (isSelenoid) {
     config.onCleanUp = () => waitVideo();
 }
 
-if (reporter === 'mocha') {
+if (reporter === 'allure') {
     config.mochaOpts.reporter = 'allure-mocha';
+} else if (reporter === 'custom') {
+    config.mochaOpts.reporter = 'my-custom-reporter';
 } else if (reporter === 'reportportal') {
     config.mochaOpts.reporter = 'mocha-rp-reporter';
     config.mochaOpts.reporterOptions = {
