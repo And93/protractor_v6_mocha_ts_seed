@@ -5,7 +5,9 @@
     "postinstall": "webdriver-manager update --gecko false --ie false --ignore_ssl --alternate_cdn",
     "test": "ts-node node_modules/protractor/bin/protractor protractor.conf.ts --disableChecks",
     "posttest": "chromedriver_killer.bat",
-    "allure-report": "allure generate ./allure-results -c"
+    "allure:history": "copyfiles -f \"./allure-report/history/**\" ./allure-results/history/",
+    "allure:report": "allure generate ./allure-results -c",
+    "generate:allure-report": "run-s allure:history allure:report"
   },
   "devDependencies": {
     "@types/chai": "4.2.3",
