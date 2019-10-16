@@ -76,8 +76,7 @@ export const config: Config = {
 if (isSelenoid) {
     config.seleniumAddress = 'http://localhost:4444/wd/hub';
 
-    config.capabilities = Object.assign(
-        {},
+    Object.assign(
         config.capabilities,
         {
             'selenoid:options': {
@@ -94,18 +93,10 @@ if (isSelenoid) {
 if (reporter === 'allure') {
     config.mochaOpts.reporter = 'allure-mocha';
 } else if (reporter === 'reportportal') {
-    config.mochaOpts.reporter = 'mocha-rp-reporter';
-    config.mochaOpts.reporterOptions = {
-        // configFile: 'path to config.json', or uncomment this string.
-        configOptions: {
-            token: '306ba368-412b-4d32-b8a0-51aad0dab24b',
-            endpoint: 'http://localhost:8080/api/v1',
-            launch: 'Example_launch',
-            project: 'protractor_v6_mocha_ts_seed',
-            mode: 'DEFAULT',
-            debug: false,
-            description: 'Launch description text',
-            tags: [],
+    config.mochaOpts = {
+        reporter: 'mocha-rp-reporter',
+        reporterOptions: {
+            configFile: './reportportal.conf.json'
         }
     }
 } else {

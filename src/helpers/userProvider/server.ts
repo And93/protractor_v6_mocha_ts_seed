@@ -8,13 +8,16 @@ export const ADDRESS = `http://localhost:${PORT}`;
 
 const app: express.Express = express();
 
-const time = () => `[${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}]`;
+const logMsg = (prefix: 'I' | 'E') => {
+    const date = new Date();
+    return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${prefix}/UserServer -`
+};
 
 app.get('/all', (_request: Request, response: Response): Response => response.send(USERS));
 
 app.get('/get', (_request: Request, response: Response): Response => {
     const account = USERS.pop();
-    console.log(`${time()} I/UserServer - Provided user: ${JSON.stringify(account)}`);
+    console.log(`${logMsg('I')} Provided user: ${account.username}`);
     return response.send(account);
 });
 
@@ -22,7 +25,7 @@ app.get('/return', (request: Request, response: Response): Response => {
     const {query} = request;
 
     if (!query.username) {
-        throw Error('Please, set correct params to the /return call');
+        throw new Error(`${logMsg('E')} Please, set correct params to the "/return" call. Current: ${query}`);
     }
 
     const {type, username, password, message} = query;
@@ -35,8 +38,8 @@ app.get('/return', (request: Request, response: Response): Response => {
     };
 
     USERS.push(account);
-    console.log(`${time()} I/UserServer - Returned user: ${JSON.stringify(account)}`);
+    console.log(`${logMsg('I')} Returned user: ${account.username}`);
     return response.send(account);
 });
 
-export const start = (): Server => app.listen(PORT, () => console.log(`${time()} I/UserServer - Listening on the ${PORT} port.`));
+export const start = (): Server => app.listen(PORT, () => console.log(`${logMsg('I')} Listening on the ${PORT} port.`));

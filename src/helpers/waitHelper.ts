@@ -10,7 +10,7 @@ const checkCondition = (condition: () => Promise<boolean>, interval: number, tim
             }
             timeout -= interval;
             if (timeout <= 0) {
-                reject(Error('Timeout is reached.'));
+                reject(new Error('Timeout is reached.'));
                 return;
             }
             return setTimeout(checkCondition, interval, condition, interval, timeout, resolve, reject);

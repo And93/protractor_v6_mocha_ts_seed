@@ -3,10 +3,10 @@ import {browser} from 'protractor';
 import {waitUntil} from './waitHelper';
 import {TIMEOUT} from './timeoutHelper';
 
-export const getCurrentSessionId = async (): Promise<string> => {
+export const getCurrentSessionId = async (): Promise<{ id: string }> => {
     const session = await browser.getSession();
     const id: string = await session.getId();
-    return browser.params.session.id = id;
+    return browser.params.session = {id};
 };
 
 export const waitVideo = (id: string = browser.params.session.id): Promise<void> => {
