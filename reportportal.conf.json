@@ -1,0 +1,10 @@
+{
+  "token": "306ba368-412b-4d32-b8a0-51aad0dab24b",
+  "endpoint": "http://localhost:8080/api/v1",
+  "launch": "Example_launch",
+  "project": "protractor_v6_mocha_ts_seed",
+  "mode": "DEFAULT",
+  "debug": false,
+  "description": "Launch description text",
+  "tags": []
+}
