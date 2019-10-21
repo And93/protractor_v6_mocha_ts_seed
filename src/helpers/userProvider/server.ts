@@ -10,7 +10,7 @@ const app: express.Express = express();
 
 const logMsg = (prefix: 'I' | 'E') => {
     const date = new Date();
-    return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${prefix}/UserServer -`
+    return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${prefix}/UserServer - PID: ${process.pid}.`
 };
 
 app.get('/all', (_request: Request, response: Response): Response => response.send(USERS));

@@ -5,7 +5,7 @@ import {ADDRESS} from './server';
 
 const logMsg = (prefix: 'I' | 'E') => {
     const date = new Date();
-    return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${prefix}/UserService -`
+    return `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}] ${prefix}/UserService - PID: ${process.pid}.`
 };
 
 export const setUser = async (): Promise<IUser> => {
