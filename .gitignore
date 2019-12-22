@@ -4,7 +4,6 @@ node_modules
 allure-report
 allure-results
 
-artifacts/logs/*.log
-artifacts/video/*.mp4
+artifacts/**
 
 *lock.json
