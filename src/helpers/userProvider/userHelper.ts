@@ -19,6 +19,7 @@ export const setUser = async (): Promise<IUser> => {
         const response: IUser = await request(options);
 
         Object.assign(browser.params.user, response);
+        // tslint:disable-next-line:no-console
         console.log(`${logMsg('I')} Set user: ${response.username}`);
         return response;
     } catch (error) {
@@ -36,6 +37,7 @@ export const returnUser = async (userObject: IUser = browser.params.user): Promi
 
     try {
         const response: IUser = await request(options);
+        // tslint:disable-next-line:no-console
         console.log(`${logMsg('I')} Returned user: ${response.username}`);
         return response;
     } catch (error) {
@@ -51,6 +53,7 @@ export const getUsersList = async (): Promise<IUser[]> => {
 
     try {
         const response: IUser[] = await request(options);
+        // tslint:disable-next-line:no-console
         console.log(`${logMsg('I')} List of all users:: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {

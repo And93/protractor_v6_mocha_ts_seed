@@ -15,5 +15,7 @@ describe('Example suite (1)', () => {
         await browser.get('.');
         const elemIsDisplayed = await browser.$('#intro').isDisplayed();
         expect(elemIsDisplayed).to.be.true;
+
+        await browser.cdp.page.goto('https://www.onliner.by/');
     });
 });

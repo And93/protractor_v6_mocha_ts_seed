@@ -1,0 +1,10 @@
+{
+  "connectToBrowser": true,
+  "connectOptions": {
+    "defaultViewport": {
+      "width": 800,
+      "height": 600
+    }
+  },
+  "timeout": 60000
+}

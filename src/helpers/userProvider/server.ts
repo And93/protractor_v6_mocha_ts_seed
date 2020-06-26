@@ -17,6 +17,7 @@ app.get('/all', (_request: Request, response: Response): Response => response.se
 
 app.get('/get', (_request: Request, response: Response): Response => {
     const account = USERS.pop();
+    // tslint:disable-next-line:no-console
     console.log(`${logMsg('I')} Provided user: ${account.username}`);
     return response.send(account);
 });
@@ -28,7 +29,7 @@ app.get('/return', (request: Request, response: Response): Response => {
         throw new Error(`${logMsg('E')} Please, set correct params to the "/return" call. Current: ${query}`);
     }
 
-    const {type, username, password, message} = query;
+    const {type, username, password, message} = query as any;
 
     const account: IUser = {
         type,
@@ -38,8 +39,10 @@ app.get('/return', (request: Request, response: Response): Response => {
     };
 
     USERS.push(account);
+    // tslint:disable-next-line:no-console
     console.log(`${logMsg('I')} Returned user: ${account.username}`);
     return response.send(account);
 });
 
+// tslint:disable-next-line:no-console
 export const start = (): Server => app.listen(PORT, () => console.log(`${logMsg('I')} Listening on the ${PORT} port.`));

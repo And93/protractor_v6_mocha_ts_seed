@@ -63,6 +63,11 @@ export const config: Config = {
         }
     },
 
+    plugins: [{
+        package: 'protractor-puppeteer-plugin',
+        configFile: './puppeteer.conf.json'
+    }],
+
     beforeLaunch: () => start(),
 
     onPrepare: async () => {
